@@ -19,7 +19,7 @@ Install as usual, see [this](https://drupal.org/documentation/install/modules-th
 
 There are no configuration options available for the MARCXML module in Drupal. Enabling the module adds the MARCXML tab to all solution packs for all users with permissions to view Fedora objects, and makes the MARCXML upload option available for all content models during ingest.
 
-Permissions to control who may _Download PREMIS metadata_ and _View PREMIS metadata_ are available at Administration » People » Permissions (admin/people/permissions).
+Permissions to control who may _View MARCXML output_ are available at Administration » People » Permissions (admin/people/permissions).
 
 ## Documentation
 
