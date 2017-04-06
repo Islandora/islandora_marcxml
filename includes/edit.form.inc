@@ -2,11 +2,11 @@
 
 /**
  * @file
- * Upload MARCXML file.
+ * Form functions for editing a MODS datastream by re-transforming MARCXML.
  */
 
 /**
- * Upload MARCXML form.
+ * Form to allow editing of an existing MODS datastream.
  *
  * @param array $form
  *   The Drupal form.
