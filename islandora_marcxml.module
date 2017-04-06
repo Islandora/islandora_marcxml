@@ -32,6 +32,14 @@ function islandora_marcxml_menu() {
       'delivery callback' => 'islandora_marcxml_xml_download',
       'file' => 'includes/utilities.inc',
     ),
+    'islandora/object/%islandora_object/update_mods_from_marcxml' => array(
+      'title' => 'Update MODS',
+      'description' => 'Updates the MODS datastream from a new MARCXML source.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('islandora_marcxml_edit_file_form', 2),
+      'access arguments' => array(ISLANDORA_METADATA_EDIT),
+      'file' => 'includes/edit.form.inc',
+    ),
   );
 }
 
@@ -95,5 +103,19 @@ function islandora_marcxml_islandora_ingest_steps_alter(array &$steps, array &$f
         'module' => 'islandora_marcxml',
       );
     }
+  }
+}
+
+/**
+ * Implements hook_islandora_edit_datastream_registry().
+ */
+function islandora_marcxml_islandora_edit_datastream_registry(AbstractObject $object, AbstractDatastream $datastream) {
+  if ($datastream->id == 'MODS') {
+    return array(
+      'islandora_marcxml_update_mods_from_marcxml' => array(
+        'name' => t('Update MODS from MARCXML'),
+        'url' => "islandora/object/{$object->id}/update_mods_from_marcxml",
+      ),
+    );
   }
 }
