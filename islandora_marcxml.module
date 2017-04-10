@@ -113,7 +113,7 @@ function islandora_marcxml_islandora_edit_datastream_registry(AbstractObject $ob
   if ($datastream->id == 'MODS') {
     return array(
       'islandora_marcxml_update_mods_from_marcxml' => array(
-        'name' => t('Update MODS from MARCXML'),
+        'name' => t('Update MODS from a user provided MARCXML'),
         'url' => "islandora/object/{$object->id}/update_mods_from_marcxml",
       ),
     );

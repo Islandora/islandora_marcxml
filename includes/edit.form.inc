@@ -37,6 +37,26 @@ function islandora_marcxml_edit_file_form(array $form, array &$form_state, Abstr
 }
 
 /**
+ * Validation to ensure the uploaded XML is valid MARCXML.
+ *
+ * @param array $form
+ *   The Drupal form.
+ * @param array $form_state
+ *   The Drupal form state.
+ */
+function islandora_marcxml_edit_file_form_validate(array $form, array &$form_state) {
+  $file = file_load($form_state['values']['file']);
+  // Validate that the two elements the XSL looks for are present.
+  $dom = new DOMDocument();
+  $dom->load(drupal_realpath($file->uri));
+  $dom_xpath = new DOMXPath($dom);
+  $dom_xpath->registerNamespace('marc', 'http://www.loc.gov/MARC21/slim');
+  if (!$dom_xpath->evaluate('boolean(//marc:collection|//marc:record)')) {
+    form_error($form['file'], t('The uploaded XML is not valid MARCXML.'));
+  }
+}
+
+/**
  * Populate the MODS datastream with the transformed MARCXML.
  *
  * @param array $form
