@@ -37,8 +37,17 @@ function islandora_marcxml_menu() {
       'description' => 'Updates the MODS datastream from a new MARCXML source.',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('islandora_marcxml_edit_file_form', 2),
-      'access arguments' => array(ISLANDORA_METADATA_EDIT),
+      'access callback' => 'islandora_marcxml_update_access_callback',
+      'access arguments' => array(2),
       'file' => 'includes/edit.form.inc',
+    ),
+    'admin/islandora/tools/islandora_marcxml' => array(
+      'title' => 'Islandora MARCXML',
+      'description' => 'Configure settings for the Bookmark module.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('islandora_marcxml_admin_settings'),
+      'access arguments' => array('administer site configuration'),
+      'file' => 'includes/admin.form.inc',
     ),
   );
 }
@@ -88,6 +97,20 @@ function islandora_marcxml_access_callback($object) {
 }
 
 /**
+ * Callback for re-transforming a MARCXML file and storing in MODS.
+ *
+ * @param AbstractObject $object
+ *   An object attempting to have its MODS updated.
+ *
+ * @return bool
+ *   TRUE if the user has access to the object and the ability to update, FALSE
+ *   otherwise.
+ */
+function islandora_marcxml_update_access_callback(AbstractObject $object) {
+  return variable_get('islandora_marcxml_allow_editing_of_existing_mods', FALSE) && islandora_object_access(ISLANDORA_METADATA_EDIT, $object);
+}
+
+/**
  * Implements hook_islandora_ingest_steps_alter().
  */
 function islandora_marcxml_islandora_ingest_steps_alter(array &$steps, array &$form_state) {
@@ -110,7 +133,7 @@ function islandora_marcxml_islandora_ingest_steps_alter(array &$steps, array &$f
  * Implements hook_islandora_edit_datastream_registry().
  */
 function islandora_marcxml_islandora_edit_datastream_registry(AbstractObject $object, AbstractDatastream $datastream) {
-  if ($datastream->id == 'MODS') {
+  if (variable_get('islandora_marcxml_allow_editing_of_existing_mods', FALSE) && $datastream->id == 'MODS') {
     return array(
       'islandora_marcxml_update_mods_from_marcxml' => array(
         'name' => t('Update MODS from a user provided MARCXML'),
