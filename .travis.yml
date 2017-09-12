@@ -49,4 +49,4 @@ script:
   - drush coder-review --reviews=production,security,style,i18n,potx,sniffer islandora_marcxml
   - phpcpd --names *.module,*.inc,*.test sites/all/modules/islandora_marcxml
 notifications:
-  irc: "irc.freenode.org#islandora
+  irc: "irc.freenode.org#islandora"
