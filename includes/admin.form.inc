@@ -21,7 +21,6 @@ function islandora_marcxml_admin_settings(array $form, array &$form_state) {
     '#options' => array(
       'MARC21slim2MODS3-5.xsl' => t('MARCXML to MODS 3.5'),
       'MARC21slim2MODS3-6.xsl' => t('MARCXML to MODS 3.6'),
-      'MARC21slim_MODS3-6_XSLT2-0.xsl' => t('MARCXML to MODS 3.6 XSLT 2.0'),
     ),
     '#description' => t('Select the MARC to MODS XSL file to convert your uploaded MARCXML to MODS.'),
   );
@@ -32,7 +31,6 @@ function islandora_marcxml_admin_settings(array $form, array &$form_state) {
     '#options' => array(
       'MODS2MARC21slim.xsl' => t('MODS 3.0 to MARCXML'),
       'MODS3-4_MARC21slim_XSLT1-0.xsl' => t('MODS 3.4 to MARC XSLT 1.0'),
-      'MODS3-4_MARC21slim_XSLT2-0.xsl' => t('MODS 3.4 to MARC XSLT 2.0'),
     ),
     '#description' => t('Select the MARC to MODS XSL file to convert your uploaded MARCXML to MODS.'),
   );
