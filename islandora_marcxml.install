@@ -10,6 +10,7 @@
 function islandora_marcxml_uninstall() {
   $variables = array(
     'islandora_marcxml_allow_editing_of_existing_mods',
+    'islandora_marcxml_ingest_step',
   );
   array_walk($variables, 'variable_del');
 }
