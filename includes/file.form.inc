@@ -21,8 +21,7 @@ function islandora_marcxml_file_form(array $form, array &$form_state) {
     'file' => array(
       '#type' => 'managed_file',
       '#title' => t('MARCXML File'),
-      '#description' => t('A file containing a MARCXML record, to be transformed to MODS. Click "Next" to skip this step and create a record from scratch.
-        To disable this ingest step, configure the Islandora MARCXML module.'),
+      '#description' => t('A file containing a MARCXML record, to be transformed to MODS. Click "Next" to skip this step and create a record from scratch.'),
       '#upload_validators' => array(
         'file_validate_extensions' => array('xml'),
       ),

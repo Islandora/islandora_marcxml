@@ -23,3 +23,11 @@ function islandora_marcxml_update_7100(&$sandbox) {
   MODS-to-MARCXML and MARCXML-to-MODS XSL files. If you wish to switch back to the old versions, you can select them
   on the module configuration page.')));
 }
+
+/**
+ * Notify the administrator of the new toggle option.
+ */
+function islandora_marcxml_update_7200(&$sandbox) {
+  drupal_set_message(filter_xss(t('A new setting has been added to the Islandora MARCXML configuration form.
+  You may now turn off the ingest step that invites the user to upload a MARCXML file.')));
+}
