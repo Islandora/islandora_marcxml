@@ -34,5 +34,11 @@ function islandora_marcxml_admin_settings(array $form, array &$form_state) {
     ),
     '#description' => t('Select the MARC to MODS XSL file to convert your uploaded MARCXML to MODS.'),
   );
+  $form['islandora_marcxml_ingest_step'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Add a MARCXML File ingest step'),
+    '#description' => t('When ingesting objects, provide the option to upload a MARCXML file to populate the ingest form.'),
+    '#default_value' => variable_get('islandora_marcxml_ingest_step', TRUE),
+  );
   return system_settings_form($form);
 }
