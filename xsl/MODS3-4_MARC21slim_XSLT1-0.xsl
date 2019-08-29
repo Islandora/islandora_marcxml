@@ -575,14 +575,14 @@
 			</xsl:with-param>
 		</xsl:call-template>	
 	</xsl:template>
-	<!-- v3 role-->
-	<xsl:template match="mods:name[@type='personal'][mods:role/mods:roleTerm[@type='text']='creator']">
+	<!-- v3 role--><!--Name personal 100 revised Aug. 29, 2019-->
+	<xsl:template match="mods:name[@type='personal' and @usage='primary'][mods:role/mods:roleTerm[@type='text']='creator']">
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">100</xsl:with-param>
 			<xsl:with-param name="ind1">1</xsl:with-param>
 			<xsl:with-param name="subfields">
 				<marc:subfield code="a">
-					<xsl:value-of select="mods:namePart"/>
+					<xsl:value-of select="mods:displayForm"/>
 				</marc:subfield>
 				<!-- v3 termsOfAddress -->
 				<xsl:for-each select="mods:namePart[@type='termsOfAddress']">
@@ -670,14 +670,14 @@
 			</xsl:with-param>
 		</xsl:call-template>	
 	</xsl:template>
-	<!-- v3 role -->
+	<!-- v3 role --><!--Name personal 700 revised Aug. 29, 2019-->
 	<xsl:template match="mods:name[@type='personal'][mods:role/mods:roleTerm[@type='text']!='creator' or not(mods:role)]">
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">700</xsl:with-param>
 			<xsl:with-param name="ind1">1</xsl:with-param>
 			<xsl:with-param name="subfields">
 				<marc:subfield code="a">
-					<xsl:value-of select="mods:namePart"/>
+					<xsl:value-of select="mods:displayForm"/>
 				</marc:subfield>
 				<!-- v3 termsofAddress -->
 				<xsl:for-each select="mods:namePart[@type='termsOfAddress']">
@@ -872,7 +872,8 @@
 				</xsl:with-param>
 			</xsl:call-template>
 		</xsl:for-each>
-		<xsl:for-each select="mods:issuance">
+		<!--Commented out as it is the incorrect MARC field for issuance -->
+		<!--<xsl:for-each select="mods:issuance">
 			<xsl:call-template name="datafield">
 				<xsl:with-param name="tag">250</xsl:with-param>
 				<xsl:with-param name="subfields">
@@ -881,7 +882,7 @@
 					</marc:subfield>
 				</xsl:with-param>
 			</xsl:call-template>
-		</xsl:for-each>
+		</xsl:for-each>-->
 		<xsl:if test="mods:place/mods:placeTerm[@type='text'] or mods:publisher or mods:dateIssued or mods:dateCreated">
 			<xsl:call-template name="datafield">
 				<xsl:with-param name="tag">
@@ -1045,10 +1046,11 @@
 	</xsl:template>
 	
 	<!-- v3.4 Added for 337 and 338 mods:form-->
-	<xsl:template match="mods:form[@type='media']|mods:form[@type='carrier']|mods:form[@type='material']|mods:form[@type='technique']">
+	<xsl:template match="mods:genre[@authority='rdacontent']|mods:form[@type='media']|mods:form[@type='carrier']|mods:form[@type='material']|mods:form[@type='technique']">
 		<xsl:call-template name="datafield">
 			<xsl:with-param name="tag">
 				<xsl:choose>
+					<xsl:when test="@authority='rdaconent'">336</xsl:when>
 					<xsl:when test="@type='media'">337</xsl:when>
 					<xsl:when test="@type='carrier'">338</xsl:when>
 					<xsl:when test="@type='material'">340</xsl:when>
@@ -1718,10 +1720,11 @@
 			<xsl:with-param name="tag">022</xsl:with-param>
 			<xsl:with-param name="subfields">
 				<marc:subfield>
-					<!-- v3.4 updated code to handle invalid isbn -->
+					<!-- v3.4 updated code to handle invalid isbn --><!--Updated code to capture issn-l 8/28/2019-->
 					<xsl:attribute name="code">
 						<xsl:choose>
 							<xsl:when test="@invalid='yes'">z</xsl:when>
+							<xsl:when test="@type='issn-l'">l</xsl:when>
 							<xsl:otherwise>a</xsl:otherwise>
 						</xsl:choose>
 					</xsl:attribute>
